@@ -1,5 +1,23 @@
 .msg {
   color: red;
   background: black;
-  font-size: 30px;
+  font-size: 20px;
+  padding: 20px;
+  text-align:center
+ 
 }
+
+.box{
+  border: 1px solid red;
+  color: white;
+  text-align: left;
+  width: 50%
+}
+.boxBot{
+  border: 1px solid red;
+  background: green;
+  color: white;
+  text-align: right;
+  width: 50%
+}
+
