@@ -1,12 +1,24 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react";
+import { ThemeProvider, createTheme } from "@mui/material";
+import { MessageList, Layout, Header, ChatList } from "./components";
+import "./global.css";
 
-import { Message } from "./components/Message/Message";
+const theme = createTheme({
+  myPalette: {
+    color: "red",
+  },
+  palette: {},
+});
+
 function App() {
   return (
-    <div className="App">
-      <Message msg="Hello React" num="2022" />
-    </div>
+    <ThemeProvider theme={theme}>
+      <Layout
+        messages={<MessageList />}
+        header={<Header />}
+        chats={<ChatList />}
+      />
+    </ThemeProvider>
   );
 }
 
