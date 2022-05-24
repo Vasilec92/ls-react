@@ -1,4 +1,4 @@
-import { List } from "@mui/material";
+import { List, Button } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { Chat } from "./chat";
@@ -11,9 +11,9 @@ export const ChatList = () => {
   return (
     <List component="nav">
       {chats.map((chat) => (
-        <Link key={chat} to={`/chat/${chat}`}>
+        <Button fullWidth component={Link} key={chat} to={`/chat/${chat}`}>
           <Chat title={chat} selected={roomId === chat} />
-        </Link>
+        </Button>
       ))}
     </List>
   );

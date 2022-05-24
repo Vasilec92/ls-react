@@ -14,8 +14,8 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Header />
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/profile" element={<Profile />} />
           <Route
