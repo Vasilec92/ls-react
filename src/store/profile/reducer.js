@@ -1,4 +1,4 @@
-import { TOGGLE_VISIBLE_PROFILE, UPDATE_PROFILE, SHOW_PROFILE } from "./types";
+import { TOGGLE_VISIBLE_PROFILE, UPDATE_PROFILE } from "./types";
 
 const initialState = {
   firstName: "Anna",
