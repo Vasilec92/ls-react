@@ -25,6 +25,7 @@ export function Chat({ title, selected, deleteConversationByName }) {
         <AccountCircle fontSize="large" className={styles.icon} />
       </ListItemIcon>
       <div className={styles.description}>
+        <ListItemText className={styles.text} primary={title} />
         {message && (
           <ListItemText
             className={styles.text}
