@@ -4,6 +4,6 @@ export const toggleVisibleProfile = () => {
   return { type: TOGGLE_VISIBLE_PROFILE };
 };
 
-export const updateProfile = (user) => {
-  return { type: UPDATE_PROFILE, payload: user };
+export const updateProfile = (form) => {
+  return { type: UPDATE_PROFILE, payload: form };
 };

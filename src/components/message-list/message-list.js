@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { sendMessage } from "../../store/messages";
 // import PropTypes from "prop-types";
 import { Input, InputAdornment } from "@mui/material";
 import styled from "@emotion/styled";
@@ -18,7 +20,7 @@ const IconStyles = styled(Send)`
   color: #2b5278;
 `;
 
-const getBotMessage = () => ({
+/* const getBotMessage = () => ({
   author: "Bot",
   message: "Hello from bot",
   date: new Date(),
@@ -31,15 +33,16 @@ const getBotAnswer = (message) => {
   };
 
   return answers[message] || "not found answer";
-};
+}; */
 
 export const MessageList = () => {
   const { roomId } = useParams();
-
+  const dispatch = useDispatch();
   const [value, setValue] = useState("");
-  const [messageList, setMessageList] = useState({
-    room1: [getBotMessage()],
-  });
+
+  const messageList = useSelector(
+    (state) => state.messages.messages[roomId] ?? []
+  );
 
   const ref = useRef();
 
@@ -49,7 +52,14 @@ export const MessageList = () => {
     }
   }, [messageList]);
 
-  const sendMessage = useCallback(
+  const send = (message, author = "User") => {
+    if (message) {
+      dispatch(sendMessage(roomId, { message, author }));
+      setValue("");
+    }
+  };
+
+  /* const sendMessage = useCallback(
     (message, author = "User") => {
       if (message) {
         setMessageList((state) => ({
@@ -63,9 +73,9 @@ export const MessageList = () => {
       }
     },
     [roomId]
-  );
+  ); */
 
-  useEffect(() => {
+  /*  useEffect(() => {
     const messages = messageList[roomId] ?? [];
     const lastMessage = messages[messages.length - 1];
     let timerId = null;
@@ -79,21 +89,19 @@ export const MessageList = () => {
     return () => {
       clearInterval(timerId);
     };
-  }, [sendMessage, messageList, roomId]);
+  }, [sendMessage, messageList, roomId]); */
 
   const handlePressInput = ({ code }) => {
     if (code === "Enter") {
-      sendMessage(value);
+      send(value);
     }
   };
-
-  const messages = messageList[roomId] ?? [];
 
   return (
     <>
       <div ref={ref}>
-        {messages.map((message, index) => (
-          <Message message={message} key={message?.date ?? index} />
+        {messageList?.map((message, index) => (
+          <Message roomId={roomId} message={message} key={message.id} />
         ))}
       </div>
 
@@ -105,7 +113,7 @@ export const MessageList = () => {
         fullWidth={true}
         endAdornment={
           <InputAdornment position="end">
-            {value && <IconStyles onClick={() => sendMessage(value)} />}
+            {value && <IconStyles onClick={() => send(value)} />}
           </InputAdornment>
         }
       />

@@ -14,3 +14,8 @@
 .description .text:last-child {
   text-align: right;
 }
+
+.delateIcon {
+  width: 100%;
+  text-align: right;
+}

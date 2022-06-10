@@ -1,8 +1,8 @@
 import { TOGGLE_VISIBLE_PROFILE, UPDATE_PROFILE } from "./types";
 
 const initialState = {
-  firstName: "Anna",
-  lastName: "VAsileva",
+  firstName: "firstName",
+  lastName: "lastName",
   isVisibleProfile: true,
 };
 
