@@ -9,13 +9,26 @@ import {
   crashReporter,
   thunk,
 } from "./middlewares";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+const persistConfig = {
+  key: "root",
+  storage,
+  blacklist: ["messages"],
+  whitelist: ["profile", "conversations"],
+};
+
+const rootReducer = combineReducers({
+  profile: profileReducer,
+  conversations: conversationsReducer,
+  messages: messagesReducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = createStore(
-  combineReducers({
-    profile: profileReducer,
-    conversations: conversationsReducer,
-    messages: messagesReducer,
-  }),
+  persistedReducer,
   compose(
     applyMiddleware(thunk, logger, timeScheduler, botMessage, crashReporter),
     window.__REDUX_DEVTOOLS_EXTENSION__
@@ -23,3 +36,5 @@ export const store = createStore(
       : (args) => args
   )
 );
+
+export const persistor = persistStore(store);
