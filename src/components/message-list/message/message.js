@@ -13,7 +13,7 @@ export function Message({ message, roomId }) {
         [styles.currentMessage]: message.author === "User",
       })}
     >
-      <div className={styles.delateIcon}>
+      <div className={classNames(styles.delate)}>
         <DeleteForever
           sx={{ color: "red" }}
           variant="plain"

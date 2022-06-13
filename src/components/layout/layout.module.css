@@ -20,7 +20,7 @@
 }
 
 .chats {
-  overflow-y: auto;
+  /*  overflow-y: auto; */
   width: 20%;
   background-color: #447eb7;
   border-right: 1px solid #000;

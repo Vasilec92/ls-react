@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { sendMessage } from "../../store/messages";
+import { sendMessage, sendMessageWithBot } from "../../store/messages";
 // import PropTypes from "prop-types";
 import { Input, InputAdornment } from "@mui/material";
 import styled from "@emotion/styled";
@@ -54,7 +54,7 @@ export const MessageList = () => {
 
   const send = (message, author = "User") => {
     if (message) {
-      dispatch(sendMessage(roomId, { message, author }));
+      dispatch(sendMessageWithBot(roomId, { message, author }));
       setValue("");
     }
   };
