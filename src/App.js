@@ -1,7 +1,14 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
-import { MessageList, Layout, Header, ChatList, Profile } from "./components";
+import {
+  MessageList,
+  Layout,
+  Header,
+  ChatList,
+  Profile,
+  Gists,
+} from "./components";
 import "./global.css";
 import { store, persistor } from "./store";
 import { Provider } from "react-redux";
@@ -30,6 +37,7 @@ function App() {
                 }
               />
               <Route path="/" element={<Profile />} />
+              <Route path="/gists" element={<Gists />} />
               <Route path="*" element={<h1>404</h1>} />
             </Routes>
           </BrowserRouter>

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGists } from "../store/gists";
+import { getGists } from "../../store/gists";
 
-export const GistsPage = () => {
+export const Gists = () => {
   // const [gists, setGists] = useState([]);
   // const [error, setError] = useState(null);
   // const [isLoading, setIsLoading] = useState(false);
