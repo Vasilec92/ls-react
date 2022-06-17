@@ -5,6 +5,6 @@ export const getPublicGistsApi = (page = 1) => {
 };
 
 // @TODO  написать редюсер
-export const getGistsByNameApi = (name = "anna") => {
+export const getPublicGistsApiName = (name = "anna") => {
   return request.get(`/users/${name}/gists`);
 };

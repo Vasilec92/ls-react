@@ -11,7 +11,7 @@ import {
 } from "./middlewares";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { getPublicGistsApi, getGistsByNameApi } from "../api/gists";
+import { getPublicGistsApi, getPublicGistsApiName } from "../api/gists";
 import thunk from "redux-thunk";
 
 const persistConfig = {
@@ -20,7 +20,7 @@ const persistConfig = {
   blacklist: ["messages"],
   whitelist: ["profile", "conversations"],
 };
-const api = { getPublicGistsApi, getGistsByNameApi };
+const api = { getPublicGistsApi, getPublicGistsApiName };
 const rootReducer = combineReducers({
   profile: profileReducer,
   conversations: conversationsReducer,

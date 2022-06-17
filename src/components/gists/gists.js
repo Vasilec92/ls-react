@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGists } from "../../store/gists";
-
+import { getGists, getGistsName } from "../../store/gists";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
 export const Gists = () => {
   // const [gists, setGists] = useState([]);
   // const [error, setError] = useState(null);
@@ -31,10 +33,13 @@ export const Gists = () => {
   // }, []);
 
   const dispatch = useDispatch();
-  const { gists, error, pending } = useSelector((state) => state.gists);
+  const { gists, error, pending, gistsName, errorName, pendingName } =
+    useSelector((state) => state.gists);
+  useSelector((state) => state.gistsName);
 
   useEffect(() => {
     dispatch(getGists());
+    dispatch(getGistsName());
   }, [dispatch]);
 
   if (error) {
@@ -55,25 +60,48 @@ export const Gists = () => {
 
   return (
     <div>
-      <h1>Gists page</h1>
-      {Array.from({ length: 10 })
-        .map((_, index) => index + 1)
-        .map((item) => (
-          <button onClick={() => dispatch(getGists(item))} key={item}>
-            {item}
-          </button>
-        ))}
-
-      {gists.map((gist, index) => (
-        <div key={index}>
-          <h2>
-            {gist.description || (
-              <span style={{ fontWeight: "bold" }}>no description</span>
-            )}
-          </h2>
-          <hr />
-        </div>
-      ))}
+      <Grid container>
+        <Grid item xs={12} sm={6} component={Paper} padding={5}>
+          <h1>Gists page</h1>
+          {Array.from({ length: 10 })
+            .map((_, index) => index + 1)
+            .map((item) => (
+              <button onClick={() => dispatch(getGists(item))} key={item}>
+                {item}
+              </button>
+            ))}
+          {gists.map((gist, index) => (
+            <div key={index}>
+              <h2>
+                {gist.description || (
+                  <span style={{ fontWeight: "bold" }}>no description</span>
+                )}
+              </h2>
+              <hr />
+            </div>
+          ))}
+        </Grid>
+        <Grid item xs={12} sm={6} component={Paper} padding={5}>
+          <TextField
+            fullWidth
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
+            name="name"
+            onChange={(e) => dispatch(getGistsName(e.target.value))}
+          />
+          {gistsName.map((gist, index) => (
+            <div key={index}>
+              <h2>
+                {gist.description || (
+                  <span style={{ fontWeight: "bold" }}>no description</span>
+                )}
+              </h2>
+              <hr />
+            </div>
+          ))}
+        </Grid>
+      </Grid>
     </div>
   );
 };

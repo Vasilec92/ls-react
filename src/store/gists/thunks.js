@@ -1,4 +1,11 @@
-import { getGistsStart, getGistsSuccess, getGistsError } from "./actions";
+import {
+  getGistsStart,
+  getGistsSuccess,
+  getGistsError,
+  getGistsNameStart,
+  getGistsNameSuccess,
+  getGistsNameError,
+} from "./actions";
 
 export const getGists =
   (page = 1) =>
@@ -13,3 +20,15 @@ export const getGists =
       dispatch(getGistsError(e));
     }
   };
+
+export const getGistsName = (name) => async (dispatch, _, api) => {
+  try {
+    dispatch(getGistsNameStart());
+
+    const { data } = await api.getPublicGistsApiName(name);
+
+    dispatch(getGistsNameSuccess(data));
+  } catch (e) {
+    dispatch(getGistsNameError(e));
+  }
+};
