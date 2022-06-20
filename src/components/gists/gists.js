@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGists, getGistsName } from "../../store/gists";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
+import debounce from "lodash.debounce";
 export const Gists = () => {
   // const [gists, setGists] = useState([]);
   // const [error, setError] = useState(null);
@@ -32,6 +33,12 @@ export const Gists = () => {
   //   getGists();
   // }, []);
 
+  const searchGistsDebounced = debounce((query, dispatch) => {
+    dispatch(getGistsName(query));
+  }, 1000);
+
+  const [value, setValue] = useState("");
+
   const dispatch = useDispatch();
   const { gists, error, pending, gistsName, errorName, pendingName } =
     useSelector((state) => state.gists);
@@ -39,8 +46,13 @@ export const Gists = () => {
 
   useEffect(() => {
     dispatch(getGists());
-    dispatch(getGistsName());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!!value) {
+      searchGistsDebounced(value, dispatch);
+    }
+  }, [value, dispatch]);
 
   if (error) {
     return (
