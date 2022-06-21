@@ -4,3 +4,6 @@ export * from "./header";
 export * from "./chat-list";
 export * from "./profile";
 export * from "./gists";
+export * from "./route";
+export * from "./login";
+export * from "./sign-up";

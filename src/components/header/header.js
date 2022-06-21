@@ -13,10 +13,14 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { auth } from "../../api/firebase";
+import { signOut } from "firebase/auth";
 
 const pages = [
   { page: "Profile", path: "/profile" },
   { page: "Chat", path: "/chat" },
+  { page: "Login Page", path: "/login" },
+  { page: "SignUp Page", path: "/sign-up" },
 ];
 //const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -134,6 +138,12 @@ export const Header = () => {
                 {page.page}
               </Button>
             ))}
+            <Button
+              onClick={() => signOut(auth)}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              OUT
+            </Button>
           </Box>
 
           {/* <Box sx={{ flexGrow: 0 }}>
