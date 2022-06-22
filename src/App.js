@@ -46,7 +46,7 @@ function App() {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <BrowserRouter>
-            <Header />
+            <Header session={session} />
             <Routes>
               <Route
                 path="/profile"

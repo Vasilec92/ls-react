@@ -16,15 +16,20 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { auth } from "../../api/firebase";
 import { signOut } from "firebase/auth";
 
-const pages = [
-  { page: "Profile", path: "/profile" },
+const pagesWithSession = [
   { page: "Chat", path: "/chat" },
-  { page: "Login Page", path: "/login" },
-  { page: "SignUp Page", path: "/sign-up" },
+  { page: "Profile", path: "/profile" },
+  { page: "Gists", path: "/gists" },
+];
+
+const pagesWithoutSession = [
+  { page: "SignUp", path: "/sign-up" },
+  { page: "Login", path: "/login" },
+  { page: "Home", path: "/" },
 ];
 //const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-export const Header = () => {
+export const Header = ({ session }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -95,16 +100,28 @@ export const Header = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem
-                  component={Link}
-                  to={page.path}
-                  key={page.page}
-                  onClick={handleCloseNavMenu}
-                >
-                  <Typography textAlign="center">{page.page}</Typography>
-                </MenuItem>
-              ))}
+              {!!session &&
+                pagesWithSession.map((page) => (
+                  <MenuItem
+                    component={Link}
+                    to={page.path}
+                    key={page.page}
+                    onClick={handleCloseNavMenu}
+                  >
+                    <Typography textAlign="center">{page.page}</Typography>
+                  </MenuItem>
+                ))}
+              {!session &&
+                pagesWithoutSession.map((page) => (
+                  <MenuItem
+                    component={Link}
+                    to={page.path}
+                    key={page.page}
+                    onClick={handleCloseNavMenu}
+                  >
+                    <Typography textAlign="center">{page.page}</Typography>
+                  </MenuItem>
+                ))}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -127,23 +144,38 @@ export const Header = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {!!session &&
+              pagesWithSession.map((page) => (
+                <Button
+                  component={Link}
+                  to={page.path}
+                  key={page.page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page.page}
+                </Button>
+              ))}
+            {!session &&
+              pagesWithoutSession.map((page) => (
+                <Button
+                  component={Link}
+                  to={page.path}
+                  key={page.page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page.page}
+                </Button>
+              ))}
+            {!!session && (
               <Button
-                component={Link}
-                to={page.path}
-                key={page.page}
-                onClick={handleCloseNavMenu}
+                onClick={() => signOut(auth)}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page.page}
+                OUT
               </Button>
-            ))}
-            <Button
-              onClick={() => signOut(auth)}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              OUT
-            </Button>
+            )}
           </Box>
 
           {/* <Box sx={{ flexGrow: 0 }}>
