@@ -19,6 +19,7 @@ export function Chat({ title, selected, deleteConversationByName }) {
 
     return messages[messages.length - 1];
   });
+
   return (
     <ListItemStyles className={styles.item} button={true} selected={selected}>
       <ListItemIcon>
